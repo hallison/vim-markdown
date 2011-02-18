@@ -65,7 +65,7 @@ syntax match  mkdRule      /^\s*-\{3,}$/
 syntax match  mkdRule      /^\s*\*\{3,5}$/
 syntax match  mkdListItem  "^\s*[-*+]\s\+"
 syntax match  mkdListItem  "^\s*\d\+\.\s\+"
-syntax match  mkdCode      /^\s*\n\(\(\s\{4,}[^ ]\|\t\+[^\t]\).*\n\)\+/
+syntax match  mkdCode      /^\s*\n\(\(^\s\{4}\|\t\).*\n\)\+/
 syntax match  mkdLineBreak /  \+$/
 syntax region mkdCode       start=/\\\@<!`/     end=/\\\@<!`/
 syntax region mkdCode       start=/\s*``[^`]*/  end=/[^`]*``\s*/
