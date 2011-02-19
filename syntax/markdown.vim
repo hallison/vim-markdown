@@ -63,9 +63,9 @@ syntax match  mkdRule      /^\s*-\s\{0,1}-\s\{0,1}-$/
 syntax match  mkdRule      /^\s*_\s\{0,1}_\s\{0,1}_$/
 syntax match  mkdRule      /^\s*-\{3,}$/
 syntax match  mkdRule      /^\s*\*\{3,5}$/
-syntax match  mkdListItem  "^\s*[-*+]\s\+"
+syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\(\(^\(\s\{4}\|\t\)\+.*\n\)\|\(.\+\n\)*\)*/
 syntax match  mkdListItem  "^\s*\d\+\.\s\+"
-syntax match  mkdCode      /^\s*\n\(\(^\s\{4}\|^\t\).*\n\)\+/
+syntax match  mkdCode      /^\s*\n\(^\(\s\{4}\|\t\).*\n\)\+/
 syntax match  mkdLineBreak /  \+$/
 syntax region mkdCode       start=/\\\@<!`/     end=/\\\@<!`/
 syntax region mkdCode       start=/\s*``[^`]*/  end=/[^`]*``\s*/
