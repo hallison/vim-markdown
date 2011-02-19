@@ -63,7 +63,10 @@ syntax match  mkdRule      /^\s*-\s\{0,1}-\s\{0,1}-$/
 syntax match  mkdRule      /^\s*_\s\{0,1}_\s\{0,1}_$/
 syntax match  mkdRule      /^\s*-\{3,}$/
 syntax match  mkdRule      /^\s*\*\{3,5}$/
-syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\(\(^\(\s\{4}\|\t\)\+.*\n\)\|\(.\+\n\)*\)*/
+"syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\(\(^\(\s\{4}\|\t\)\+.*\n\)\|\(.\+\n\?\)\|\)*/
+"syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\n\?\(\(^\(\s\{4}\|\t\)\+.*\n\)\|\(.\+\n\)\)*/
+"syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\n\?\(\(^\(\s\{4}\|\t\)\+.*\n\)\|\(.\+\n\n\?\)\)*/
+syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\(\(^.\+\n\)*\n\?\)\(\(^\(\s\{4}\|\t\)\+.*\n\)\(^.\+\n\)*\n\?\)*/
 syntax match  mkdListItem  "^\s*\d\+\.\s\+"
 syntax match  mkdCode      /^\s*\n\(^\(\s\{4}\|\t\).*\n\)\+/
 syntax match  mkdLineBreak /  \+$/
