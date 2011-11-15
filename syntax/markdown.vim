@@ -46,7 +46,7 @@ syntax region htmlItalic  start=/\\\@<!\(^\|\A\)\@=\<_\@<!___\@!\S/      end=/\S
 syntax region htmlItalic  start=/\\\@<!\(^\|\A\)\@=\<_\@<!__\@!\S/       end=/\S\\\@<!_\@<!__\@!\($\|\A\)\@=/       contains=htmlBold,@Spell
 
 " [link](URL) | [link][id] | [link][]
-syntax region mkdLink matchgroup=mkdDelimiter start="\!\?\["  end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
+syntax region mkdLink matchgroup=mkdDelimiter start="\!\?\["  end="\]\ze\_s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite skipnl
 syntax region mkdID   matchgroup=mkdDelimiter start="\["      end="\]" contained
 syntax region mkdURL  matchgroup=mkdDelimiter start="("       end=")"  contained
 
