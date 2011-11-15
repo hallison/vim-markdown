@@ -35,6 +35,8 @@ syntax spell toplevel
 syntax case ignore
 syntax sync linebreaks=1
 
+syntax clear htmlError
+
 " Additions to HTML groups
 syntax region htmlBold    start=/\\\@<!\(^\|\A\)\@=\*\@<!\*\*\*\@!\S/  end=/\S\\\@<!\*\@<!\*\*\*\@!\($\|\A\)\@=/  contains=htmlItalic,@Spell
 
@@ -44,7 +46,7 @@ syntax region htmlItalic  start=/\\\@<!\(^\|\A\)\@=\<_\@<!___\@!\S/      end=/\S
 syntax region htmlItalic  start=/\\\@<!\(^\|\A\)\@=\<_\@<!__\@!\S/       end=/\S\\\@<!_\@<!__\@!\($\|\A\)\@=/       contains=htmlBold,@Spell
 
 " [link](URL) | [link][id] | [link][]
-syntax region mkdLink matchgroup=mkdDelimiter start="\!\?\["  end="\]\ze\s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite
+syntax region mkdLink matchgroup=mkdDelimiter start="\!\?\["  end="\]\ze\_s*[[(]" contains=@Spell nextgroup=mkdURL,mkdID skipwhite skipnl
 syntax region mkdID   matchgroup=mkdDelimiter start="\["      end="\]" contained
 syntax region mkdURL  matchgroup=mkdDelimiter start="("       end=")"  contained
 
@@ -69,7 +71,9 @@ syntax match  mkdListItem  /^\s*\d\+\.\s\+.*\n\(\(^.\+\n\)*\n\?\)\(\(^\(\s\{4}\|
 syntax match  mkdBlockCode  /^\s*\n\(^\(\s\{4}\|\t\).*\n\)\+/
 syntax match  mkdListCode   /^\s*\n\(^\(\s\{8}\|\t{2}\).*\n\)\+/
 syntax match  mkdLineBreak /  \+$/
+syntax region mkdCode       start=/^``[^`]*/    end=/[^`]*``.*/
 syntax region mkdCode       start=/\\\@<!`/     end=/\\\@<!`/
+syntax region mkdCode       start=/^\~\~*[^~]*/ end=/[^~]*\~\~*$/
 syntax region mkdCode       start=/\s*``[^`]*/  end=/[^`]*``\s*/
 syntax region mkdBlockquote start=/^\s*>/       end=/$/           contains=mkdLineBreak,mkdLineContinue,@Spell
 syntax region mkdCode       start="<pre[^>]*>"  end="</pre>"
