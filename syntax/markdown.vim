@@ -47,8 +47,10 @@ syntax region mkdLink matchgroup=mkdDelimiter start="\!\?\["  end="\]\ze\s*[[(]"
 syntax region mkdID   matchgroup=mkdDelimiter start="\["      end="\]" contained
 syntax region mkdURL  matchgroup=mkdDelimiter start="("       end=")"  contained
 
+" Automatic links without colliding htmlTag (<URL>)
+syn region mkdLink matchgroup=mkdDelimiter start="<\(https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,50 }\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*\)\@="  end=">" oneline contains=@Spell skipwhite
+
 " Link definitions: [id]: URL (Optional Title)
-" TODO handle automatic links without colliding with htmlTag (<URL>)
 syntax region mkdLinkDef matchgroup=mkdDelimiter   start="^ \{,3}\zs\[" end="]:" oneline nextgroup=mkdLinkDefTarget skipwhite
 syntax region mkdLinkDefTarget start="<\?\zs\S" excludenl end="\ze[>[:space:]\n]"   contained nextgroup=mkdLinkTitle,mkdLinkDef skipwhite skipnl oneline
 syntax region mkdLinkTitle matchgroup=mkdDelimiter start=+"+     end=+"+  contained
@@ -64,9 +66,9 @@ syntax match  mkdRule      /^\s*-\{3,}$/
 syntax match  mkdRule      /^\s*\*\{3,5}$/
 syntax match  mkdListItem  /^\s*[-*+]\s\+.*\n\(\(^.\+\n\)*\n\?\)\(\(^\(\s\{4}\|\t\)\+.*\n\)\(^.\+\n\)*\n\?\)*/ contains=mkdListCode,mkdCode,htmlBold,htmlItalic,htmlSpecialChar,@Spell
 syntax match  mkdListItem  /^\s*\d\+\.\s\+.*\n\(\(^.\+\n\)*\n\?\)\(\(^\(\s\{4}\|\t\)\+.*\n\)\(^.\+\n\)*\n\?\)*/ contains=mkdListCode,mkdCode,htmlBold,htmlItalic,htmlSpecialChar,@Spell
-"
-syntax match  mkdBlockCode  /^\s*\n\(^\(\s\{4}\|\t\).*\n\)\+/
-syntax match  mkdListCode   /^\s*\n\(^\(\s\{8}\|\t{2}\).*\n\)\+/
+syntax match  mkdBlockCode  /^\(^\S.*\n\)\@<=\n\(^\(\s\{4}\|\t\).*\n\)\+/
+syntax match  mkdBlockCode  /^\(^\s\{4}\S.*\n\)\@<=\n\(^\(\s\{8}\|\t\{2}\).*\n\)\+/
+syntax match  mkdBlockCode  /^\(^\s\{8}\S.*\n\)\@<=\n\(^\(\s\{12}\|\t\{3}\).*\n\)\+/
 syntax match  mkdLineBreak  /  \+$/
 syntax region mkdCode       start=/\\\@<!`[^`]\@=/     end=/\\\@<![^`]`/
 syntax region mkdCode       start=/\s*``[^`]*/  end=/[^`]*``\s*/
@@ -87,7 +89,6 @@ syntax match  htmlH2       /^.\+\n-\+$/ contains=@Spell
 "highlighting for Markdown groups
 HtmlHiLink mkdString        String
 HtmlHiLink mkdCode          String
-HtmlHiLink mkdListCode      String
 HtmlHiLink mkdBlockCode     String
 HtmlHiLink mkdBlockquote    Comment
 HtmlHiLink mkdLineContinue  Comment
